@@ -1,0 +1,12 @@
+CREATE OR REPLACE VIEW v_stacje
+AS SELECT s.kod, s.nazwa as stacja, m.nazwa as miasto, s.typ_stacji, CONCAT(s.szerokosc, ',', s.dlugosc) AS wspolrzedne
+FROM stacje s 
+JOIN miasta m ON m.id=s.miasto_id;
+
+
+
+CREATE OR REPLACE VIEW v_pomiary_dzienne
+AS SELECT pd.data AS data, m.nazwa AS miasto, s.nazwa AS stacja, pd.pm10 AS pm10
+FROM pomiary_dobowe pd
+JOIN stacje s ON s.kod=pd.kod_stacji
+JOIN miasta m ON m.id=s.miasto_id;
